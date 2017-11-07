@@ -1,0 +1,844 @@
+{
+    "SecurityGroups": [
+        {
+            "Description": "default group",
+            "GroupName": "default",
+            "IpPermissions": [
+                {
+                    "FromPort": 0,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 65535,
+                    "UserIdGroupPairs": [
+                        {
+                            "GroupId": "sg-a242db92",
+                            "GroupName": "default",
+                            "UserId": "131481646883"
+                        }
+                    ]
+                },
+                {
+                    "FromPort": 0,
+                    "IpProtocol": "udp",
+                    "IpRanges": [],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 65535,
+                    "UserIdGroupPairs": [
+                        {
+                            "GroupId": "sg-a242db92",
+                            "GroupName": "default",
+                            "UserId": "131481646883"
+                        }
+                    ]
+                },
+                {
+                    "FromPort": -1,
+                    "IpProtocol": "icmp",
+                    "IpRanges": [],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": -1,
+                    "UserIdGroupPairs": [
+                        {
+                            "GroupId": "sg-a242db92",
+                            "GroupName": "default",
+                            "UserId": "131481646883"
+                        }
+                    ]
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-a242db92",
+            "IpPermissionsEgress": [],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "do not use"
+                }
+            ]
+        },
+        {
+            "Description": "Staging - allow all TCP/UDP from public",
+            "GroupName": "STG_All_from_public",
+            "IpPermissions": [
+                {
+                    "FromPort": 0,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "176.0.0.0/24"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 65535,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 0,
+                    "IpProtocol": "udp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "176.0.0.0/24"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 65535,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": -1,
+                    "IpProtocol": "icmp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "176.0.0.0/24"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": -1,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-03f6cc79",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_All_from_public"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "HTTPS and HTTP access for QA",
+            "GroupName": "STG_QATeam_HTTPS-HTTP",
+            "IpPermissions": [
+                {
+                    "FromPort": 80,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "68.101.189.211/32",
+                            "Description": "HTTPS for QA"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 80,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 443,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "68.101.189.211/32",
+                            "Description": "HTTPS for QA"
+                        },
+                        {
+                            "CidrIp": "76.173.7.213/32",
+                            "Description": "jeff in Kona"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 443,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-2029f75d",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_HTTPS-HTTP_QA"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "Allow Browser Management of TeamCity on STG_CI",
+            "GroupName": "STG_TeamCityBrowserManagement",
+            "IpPermissions": [
+                {
+                    "FromPort": 80,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [
+                        {
+                            "CidrIpv6": "::/0"
+                        }
+                    ],
+                    "PrefixListIds": [],
+                    "ToPort": 80,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 8080,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "176.0.0.0/16",
+                            "Description": "Allow 8080 access from private and public subnets"
+                        },
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [
+                        {
+                            "CidrIpv6": "::/0"
+                        }
+                    ],
+                    "PrefixListIds": [],
+                    "ToPort": 8080,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32",
+                            "Description": "Allow 8080 access from Office"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 3389,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 3389,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-3f4ec042",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_TeamCity"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "Allow SQL requests from IIS to DBDev",
+            "GroupName": "STG_SQL_IIS",
+            "IpPermissions": [
+                {
+                    "FromPort": 1433,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "176.0.0.71/32"
+                        },
+                        {
+                            "CidrIp": "176.0.0.162/32"
+                        },
+                        {
+                            "CidrIp": "34.214.16.152/32",
+                            "Description": "VPN"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 1433,
+                    "UserIdGroupPairs": [
+                        {
+                            "GroupId": "sg-2029f75d",
+                            "UserId": "131481646883"
+                        }
+                    ]
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-4632003c",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_SQL_IIS"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "Allow HTTP and HTTPS Traffic from anywhere",
+            "GroupName": "STG_HTTP-HTTPS_Public",
+            "IpPermissions": [
+                {
+                    "FromPort": 8080,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [
+                        {
+                            "CidrIpv6": "::/0"
+                        }
+                    ],
+                    "PrefixListIds": [],
+                    "ToPort": 8080,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-5cc9ab21",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_HTTP-HTTPS_Public"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "Allow RDP from private subnet or access server",
+            "GroupName": "RDP_Internal",
+            "IpPermissions": [
+                {
+                    "FromPort": 3389,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "176.0.0.193/32",
+                            "Description": "RDP from access server(private)"
+                        },
+                        {
+                            "CidrIp": "176.0.1.69/32",
+                            "Description": "RDP from access server(public)"
+                        },
+                        {
+                            "CidrIp": "176.0.0.0/8",
+                            "Description": "RDP from private subnet"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 3389,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-6db68a17",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_RDP_Private"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "Staging redshift public access",
+            "GroupName": "STG_redshift_external",
+            "IpPermissions": [
+                {
+                    "FromPort": 5439,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [
+                        {
+                            "CidrIpv6": "::/0"
+                        }
+                    ],
+                    "PrefixListIds": [],
+                    "ToPort": 5439,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-7d213607",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_redshift_external"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "This security group was generated by AWS Marketplace and is based on recommended settings for OpenVPN Access Server version 2.1.9 provided by OpenVPN Technologies, Inc.",
+            "GroupName": "OpenVPN Access Server-2-1-9-AutogenByAWSMP-1",
+            "IpPermissions": [
+                {
+                    "FromPort": 1194,
+                    "IpProtocol": "udp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32",
+                            "Description": "Office_VPN"
+                        },
+                        {
+                            "CidrIp": "77.222.158.135/32",
+                            "Description": "QA_VPN"
+                        },
+                        {
+                            "CidrIp": "98.151.74.237/32",
+                            "Description": "Jeff_VPN"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 1194,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 22,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32",
+                            "Description": "Office_SSH"
+                        },
+                        {
+                            "CidrIp": "104.36.25.9/32",
+                            "Description": "Office_SSH"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 22,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 943,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32",
+                            "Description": "Office_Webpage"
+                        },
+                        {
+                            "CidrIp": "77.222.158.135/32",
+                            "Description": "QA_Webpage"
+                        },
+                        {
+                            "CidrIp": "98.151.74.237/32",
+                            "Description": "Jeff_Webpage"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 943,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 443,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32",
+                            "Description": "Office_VPN"
+                        },
+                        {
+                            "CidrIp": "77.222.158.135/32",
+                            "Description": "QA_VPN"
+                        },
+                        {
+                            "CidrIp": "98.151.74.237/32",
+                            "Description": "Jeff_VPN"
+                        },
+                        {
+                            "CidrIp": "104.36.25.9/32",
+                            "Description": "Office_Webpage"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 443,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-94a89eee",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_OpenVPN_External"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "HTTPS and HTTP access from Office IP",
+            "GroupName": "STG_HTTPS-HTTP_Office",
+            "IpPermissions": [
+                {
+                    "FromPort": 80,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32"
+                        },
+                        {
+                            "CidrIp": "176.0.0.0/24",
+                            "Description": "Local HTTP"
+                        },
+                        {
+                            "CidrIp": "104.36.25.9/32",
+                            "Description": "Office HTTP"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 80,
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 443,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32"
+                        },
+                        {
+                            "CidrIp": "98.151.74.237/32",
+                            "Description": "jeff HI"
+                        },
+                        {
+                            "CidrIp": "176.0.0.0/24",
+                            "Description": "Local HTTPS"
+                        },
+                        {
+                            "CidrIp": "76.173.7.213/32",
+                            "Description": "jeff in Kona"
+                        },
+                        {
+                            "CidrIp": "104.36.25.9/32",
+                            "Description": "Office HTTPS"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 443,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-bc28f6c1",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_HTTPS-HTTP_Office"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "RDP to External IPs",
+            "GroupName": "RDP_External",
+            "IpPermissions": [
+                {
+                    "FromPort": 3389,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "184.176.43.50/32",
+                            "Description": "Office"
+                        },
+                        {
+                            "CidrIp": "98.151.74.237/32",
+                            "Description": "jeff B HI IP"
+                        },
+                        {
+                            "CidrIp": "76.173.7.213/32",
+                            "Description": "jeff in Kona"
+                        },
+                        {
+                            "CidrIp": "104.36.25.9/32",
+                            "Description": "Office"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 3389,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-c2df8eb8",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_RDP_External"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "Allow SQL client access from internal subnet",
+            "GroupName": "SQL_Client_Internal",
+            "IpPermissions": [
+                {
+                    "FromPort": 1433,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "176.0.0.0/24"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "ToPort": 1433,
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-c75d6fbd",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "STG_SQLClient_Internal"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        },
+        {
+            "Description": "default VPC security group",
+            "GroupName": "default",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": [
+                        {
+                            "GroupId": "sg-e75ed89d",
+                            "UserId": "131481646883"
+                        }
+                    ]
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-e75ed89d",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "do not use"
+                }
+            ],
+            "VpcId": "vpc-2ec41948"
+        },
+        {
+            "Description": "default VPC security group",
+            "GroupName": "default",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": [
+                        {
+                            "GroupId": "sg-fdc48f87",
+                            "UserId": "131481646883"
+                        }
+                    ]
+                }
+            ],
+            "OwnerId": "131481646883",
+            "GroupId": "sg-fdc48f87",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "do not use"
+                }
+            ],
+            "VpcId": "vpc-d3338eb5"
+        }
+    ]
+}
