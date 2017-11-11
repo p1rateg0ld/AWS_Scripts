@@ -1,0 +1,6 @@
+Some scripts to manage AWS EC2
+
+CreateSnapshot.py is used to create a snapshot of a volume and attach it to an instance in different or same regions
+
+SecurityGroups is designed to manage Security Groups for instances using a master list and Role Based access.
+
