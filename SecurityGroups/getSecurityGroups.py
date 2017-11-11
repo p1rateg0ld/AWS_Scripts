@@ -6,9 +6,12 @@
 #       Should probably import an existing file and update it
 #       in case the amount of data becomes sizeable
 
+# TODO: Update to use SecurityGroupClassDef instead of hardcoding everything
+
 from csv import writer
 from boto3 import client,ec2
 from sys import exc_info
+from SecurityGroupClassDef import Security_Group
 
 CSVFILE = './sginfo.csv'
 REGION = 'us-west-2'
