@@ -4,18 +4,18 @@ from boto3 import resource,client
 
 # Volume to copy
 VOLUMEID = 'vol-0a6ed427ac5dfadcd'
-SNAPSHOT_DESCRIPTION = 'Test Snapshot'
+SNAPSHOT_DESCRIPTION = 'Dev_DB_2016'
 FROMREGION = 'us-east-1'
 TOREGION = 'us-west-2'
 TOSUBREGION = 'us-west-2a'
 # Size of drive
-SIZE = 100
+SIZE = 255
 VOLUMETYPE = 'standard'
 # Name of drive
 TAGKEY = 'Name'
-TAGVALUE = 'Test-Volume'
+TAGVALUE = 'Dev_DB_D'
 # Name of Instance to attach new volume
-INSTANCEID = 'i-04abdb581ec263142'
+INSTANCEID = 'i-03771ce6a60903720'
 # Currently set for 10 minutes
 DELAY = 25
 MAX_ATTEMPTS = 48
@@ -123,9 +123,9 @@ def config_snapshot_waiter(ec2, snapshot, delay, max_attempts):
     waiter.wait(WaiterConfig={'Delay':delay,'MaxAttempts':max_attempts})
     
 
-snapshotid = create_snapshot(FROMREGION,VOLUMEID,'test snapshot')
+snapshotid = create_snapshot(FROMREGION,VOLUMEID,'dev_db')
 
-copied_snapshotid = copy_snapshot_to_region(TOREGION,FROMREGION,snapshotid,'test snapshot', DELAY, MAX_ATTEMPTS)
+copied_snapshotid = copy_snapshot_to_region(TOREGION,FROMREGION,snapshotid,'dev_db', DELAY, MAX_ATTEMPTS)
 
 volume_id = create_volume_from_snapshot(TOREGION,TOSUBREGION,SIZE,copied_snapshotid,VOLUMETYPE,TAGKEY,TAGVALUE)
 
