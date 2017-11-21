@@ -2,3 +2,4 @@ ResetDLSAppPool.sh
 ResetEasypayAppPool.sh
 *.txt
 *.csv
+*.csv#

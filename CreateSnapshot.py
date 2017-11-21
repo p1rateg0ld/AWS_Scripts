@@ -3,7 +3,7 @@
 from boto3 import resource,client
 
 # Volume to copy
-VOLUMEID = 'vol-0a6ed427ac5dfadcd'
+VOLUMEID = 'vol-027164d6795297037'
 SNAPSHOT_DESCRIPTION = 'Dev_DB_2016'
 FROMREGION = 'us-east-1'
 TOREGION = 'us-west-2'
@@ -15,7 +15,7 @@ VOLUMETYPE = 'standard'
 TAGKEY = 'Name'
 TAGVALUE = 'Dev_DB_D'
 # Name of Instance to attach new volume
-INSTANCEID = 'i-03771ce6a60903720'
+INSTANCEID = 'i-050c8c4497c3e52d2'
 # Currently set for 10 minutes
 DELAY = 25
 MAX_ATTEMPTS = 48
