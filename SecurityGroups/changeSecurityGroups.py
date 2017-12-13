@@ -27,19 +27,15 @@ def remove_security_group_from_interface(network_interface,security_group_id):
             
     network_interface.modify_attribute( Groups= modified_groups )
     
-    # can't overwite a single row, must overwrite whole file
-#def update_group_id (old_group_id, new_group_id, csv_file):
-    #with open(csv_file, 'r+',newline='') as csvfile:
-        #c_reader = reader(csvfile, delimiter= '^', quotechar= '\"')  
-        #c_writer = writer(csvfile,delimiter='^',quotechar='\"')
-        
-        #for line in c_reader:
-            ## currently picks the 4th column, which must always be initialized in any row in order for it to be valid - title[3] is vpcid and sgrule[3] is sgid
-            #if any(line) and old_group_id == line[3]:
-                #index_of = line.index(old_group_id)
-                #line[index_of] = new_group_id
-                ## might need to get row or at least go back 1 row
-                #write_row(c_writer,line)
+# TODO: Handle identical id's
+def add_security_group_from_interface(network_interface,security_group_id):
+    groups = (network_interface.describe_attribute(Attribute='groupSet'))['Groups']
+    
+    group_ids = [group['GroupId'] for group in groups]
+    
+    group_ids.append(security_group_id)
+            
+    network_interface.modify_attribute( Groups= group_ids )
 
 
 # takes a Security_Group object defined in SecurityGroupClassDef
@@ -69,11 +65,14 @@ def add_security_group (ec2_resource, ec2_client, security_group):
             security_group.group_name = '{}_{}'.format(sgn[0:(sgn_len-1):],str(sgn[::sgn_len -1] + 1) )
         except (ValueError):
             security_group.group_name = '{}_{}'.format(sgn,'_1')
+            
+def get_network_interface_with_security_group(ec2_client, security_group_id):
+    return ec2_client.describe_network_interfaces(Filters=[{'Name': 'group-id','Values': security_group_id}])
+
     
 def replace_security_group(security_group_id, csv_file, ec2_client):
-    
     # get all network interfaces that have the argument security_group_id
-    network_interfaces = ec2_client.describe_network_interfaces(Filters=[{'Name': 'group-id','Values': security_group_id}])
+    network_interfaces = get_network_interface_with_security_group(ec2_client, security_group_id)
     security_group = ec2_client.describe_security_groups(Filters=[{'Name':'group-id','Values':security_group_id}])
     
     for network_interface in network_interfaces:
@@ -85,11 +84,14 @@ def replace_security_group(security_group_id, csv_file, ec2_client):
     try:
         security_group.delete()
     except (DependencyViolation):
-        # TODO: Probably shouldn't just sysexit lol, that's retarded
-        print ('Dependency Violation, still need to detach sg from network interface')
-        sysexit()
+        # TODO: Write this to file
+        network_interfaces = get_network_interface_with_security_group(ec2_client, security_group_id)
+        print ('Dependency Violation, still need to detach sg from network interface: {}'.format(network_interfaces))
+        
         
     # create security group from file, return id, write id to cell in file
     group_id = add_security_group(ec2_client, security_group_id, csv_file)
     
     # attach sg to each id
+    for network_interface in network_interfaces:
+        add_security_group(network_interface, group_id)

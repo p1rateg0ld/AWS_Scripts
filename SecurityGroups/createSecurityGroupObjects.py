@@ -1,5 +1,6 @@
 from SecurityGroupClassDef import Security_Group
 from csv import reader
+from boto3 import client
 
 # Creates Security_Group objects from the AWS response
 def get_security_groups_from_aws(ec2_client, vpc_id):
